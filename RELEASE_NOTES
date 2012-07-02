@@ -3,6 +3,25 @@ Please read this file carefully when upgrading abook.
 A more comprehensive list of changes can be found in the ChangeLog file.
 
 --
+git SHA: e558726560de1eb4abdb78a4e5d16e6e0a127f7d
+  * remove duplicates
+
+git SHA: 5504494851b0d87d85a62fd861ea1accdc032621
+  * merge items
+
+git SHA: be6f0333177df645fc1cfdef622a57ed4317c522
+  * support for Mutt groups in import/export
+
+git SHA: 9c91aba7c7f7e47ec1a90b58d7f238c6b043dac1
+  * basic mouse support
+
+git SHA: 9c6906a1c6bf3c13ccd84b92638d0252987744cb
+  * basic color support
+
+git SHA: f937f7246af81dac1401685e3e3384646bdd5ccd
+  * vCard import
+
+-- PASSAGE TO GIT VERSIONING SYSTEM --
 
 0.6.0pre2:
   * The four following configuration options have been deprecated and will
