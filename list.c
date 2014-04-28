@@ -161,13 +161,15 @@ static void
 print_list_field(int item, int line, int *x_pos, struct index_elem *e)
 {
 	char *s, *p;
-	int width, x_start, mustfree = FALSE, len = abs(e->d.field.len);
+	int width, x_start, mustfree = FALSE, len = abs(e->d.field.len), i;
 	struct list_field f;
 
 	get_list_field(item, e, &f);
 	s = f.data;
 
 	if(!s || !*s) {
+        for(i = 0; i < len; ++i)
+            waddch(list, ' ');
 		*x_pos += len;
 		return;
 	}
@@ -185,6 +187,9 @@ print_list_field(int item, int line, int *x_pos, struct index_elem *e)
 
 	if(width)
 		mvwaddnstr(list, line, x_start, s, width);
+    width = e->d.field.len - width;
+    for(i = 0; i < width; ++i)
+        waddch(list, ' ');
 
 	if(mustfree)
 		free(s);
@@ -238,6 +243,8 @@ print_list_line(int item, int line, int highlight)
 
 	if(selected[item])
 		mvwaddch(list, line, 0, '*' );
+    else
+        mvwaddch(list, line, 0, ' ');
 
 	for(cur = index_elements; cur; cur = cur->next)
 		switch(cur->type) {
@@ -255,6 +262,10 @@ print_list_line(int item, int line, int highlight)
 	scrollok(list, TRUE);
 	if(highlight)
 		wstandend(list);
+    else {
+        for(; x_pos < COLS; ++x_pos)
+            waddch(list, ' ');
+    }
 }
 
 void
