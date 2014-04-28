@@ -209,27 +209,6 @@ highlight_line(WINDOW *win, int line)
 	if(!opt_get_bool(BOOL_USE_COLORS)) {
 		wstandout(win);
 	}
-
-	/*
-	 * this is a tricky one
-	 */
-#if 0
-/*#ifdef mvwchgat*/
-	mvwchgat(win, line, 0, -1,  A_STANDOUT, 0, NULL);
-#else
-	/*
-	 * buggy function: FIXME
-	 */
-	scrollok(win, FALSE);
-	{
-		int i;
-		wmove(win, line, 0);
-		for(i = 0; i < COLS; i++)
-			waddch(win, ' ');
-	/*wattrset(win, 0);*/
-	}
-	scrollok(win, TRUE);
-#endif
 }
 
 static void
@@ -263,14 +242,12 @@ print_list_line(int item, int line, int highlight)
 			default:
 				assert(0);
 		}
+    for(; x_pos < COLS; ++x_pos)
+        waddch(list, ' ');
 
 	scrollok(list, TRUE);
 	if(highlight)
 		wstandend(list);
-    else {
-        for(; x_pos < COLS; ++x_pos)
-            waddch(list, ' ');
-    }
 }
 
 void
